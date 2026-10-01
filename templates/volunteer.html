@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Кабинет волонтёра{% endblock %}
+{% block content %}
+<h2>Кабинет волонтёра</h2>
+
+<h3 style="margin-top: 28px;">Открытые заявки ({{ open_req|length }})</h3>
+
+<form method="get" class="filter-bar">
+    <input name="q" placeholder="Поиск по описанию..." value="{{ current_q }}">
+    <select name="cat">
+        <option value="">Все категории</option>
+        {% for key, c in CATEGORIES.items() %}
+            <option value="{{ key }}" {% if current_cat == key %}selected{% endif %}>{{ c.icon }} {{ c.label }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn small" type="submit">Найти</button>
+</form>
+
+{% for r in open_req %}
+    <div class="card open">
+        <p>{{ r.description }}</p>
+        <div class="meta">
+            <span class="badge">{{ CATEGORIES[r.category].icon }} {{ CATEGORIES[r.category].label }}</span>
+            {% if r.urgent %}<span class="badge urgent">⚡ Срочно</span>{% endif %}
+            <span>{{ r.created_at }}</span>
+        </div>
+        <div class="actions">
+            <a href="/take/{{ r.id }}" class="btn small">Взять в работу</a>
+        </div>
+    </div>
+{% else %}
+    <div class="empty">Открытых заявок пока нет.</div>
+{% endfor %}
+
+<h3 style="margin-top: 28px;">Мои смены ({{ my_req|length }})</h3>
+{% for r in my_req %}
+    <div class="card {{ r.status }}">
+        <p>{{ r.description }}</p>
+        <div class="meta">
+            <span class="badge">{{ CATEGORIES[r.category].icon }} {{ CATEGORIES[r.category].label }}</span>
+            <span>{{ r.created_at }}</span>
+        </div>
+        <div class="actions">
+            <span class="status {{ r.status }}">{{ STATUS_LABELS[r.status] }}</span>
+            {% if r.status == 'taken' %}
+                <a href="/done/{{ r.id }}" class="btn small">Отметить выполненной</a>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="empty">Вы ещё не брали заявок.</div>
+{% endfor %}
+{% endblock %}
