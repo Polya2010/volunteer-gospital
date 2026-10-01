@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+    <h1>Помощь рядом</h1>
+    <p>Пациенты оставляют заявки — волонтёры берут их в работу. Прогулки, доставка вещей, бытовая помощь.</p>
+    <div class="hero-buttons">
+        <a href="/register" class="btn">Начать</a>
+        <a href="/login" class="btn secondary">У меня есть аккаунт</a>
+    </div>
+</div>
+
+<div class="stats">
+    <div class="stat"><div class="num">{{ stats.requests }}</div><div class="label">всего заявок</div></div>
+    <div class="stat"><div class="num">{{ stats.done }}</div><div class="label">выполнено</div></div>
+    <div class="stat"><div class="num">{{ stats.volunteers }}</div><div class="label">волонтёров</div></div>
+</div>
+
+<h2 style="text-align:center;">Как это работает</h2>
+<div class="steps">
+    <div class="step">
+        <div class="icon">📝</div>
+        <h3>1. Пациент создаёт заявку</h3>
+        <p>Описывает, какая помощь нужна: прогулка, доставка, разговор.</p>
+    </div>
+    <div class="step">
+        <div class="icon">🙋</div>
+        <h3>2. Волонтёр откликается</h3>
+        <p>Видит заявку в ленте и берёт её в работу.</p>
+    </div>
+    <div class="step">
+        <div class="icon">✅</div>
+        <h3>3. Помощь оказана</h3>
+        <p>Волонтёр закрывает заявку — пациент видит статус «выполнена».</p>
+    </div>
+</div>
+{% endblock %}
