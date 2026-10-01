@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Кабинет пациента{% endblock %}
+{% block content %}
+<h2>Кабинет пациента</h2>
+<a href="/create_request" class="btn">+ Создать заявку</a>
+
+<h3 style="margin-top: 28px;">Мои заявки ({{ requests|length }})</h3>
+{% for r in requests %}
+    <div class="card {{ r.status }}">
+        <p>{{ r.description }}</p>
+        <div class="meta">
+            <span class="badge">{{ CATEGORIES[r.category].icon }} {{ CATEGORIES[r.category].label }}</span>
+            {% if r.urgent %}<span class="badge urgent">⚡ Срочно</span>{% endif %}
+            <span>{{ r.created_at }}</span>
+        </div>
+        <div class="actions">
+            <span class="status {{ r.status }}">{{ STATUS_LABELS[r.status] }}</span>
+        </div>
+    </div>
+{% else %}
+    <div class="empty">Заявок пока нет. Создайте первую!</div>
+{% endfor %}
+{% endblock %}
