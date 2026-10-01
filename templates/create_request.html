@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Новая заявка{% endblock %}
+{% block content %}
+<div class="card" style="border-left-color: var(--accent);">
+    <h2>Новая заявка</h2>
+    <form method="post">
+        <p>
+            <label>Опишите, какая помощь нужна</label>
+            <textarea name="description" rows="5" placeholder="Например: нужна помощь с доставкой одежды из ПВЗ" required></textarea>
+        </p>
+        <p>
+            <label>Категория</label>
+            <select name="category">
+                {% for key, c in CATEGORIES.items() %}
+                    <option value="{{ key }}">{{ c.icon }} {{ c.label }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label style="display:flex; align-items:center; gap:8px; font-weight:400;">
+                <input type="checkbox" name="urgent" style="width:auto;"> ⚡ Срочная заявка
+            </label>
+        </p>
+        <button class="btn" type="submit">Отправить</button>
+        <a href="/cabinet" class="btn secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
