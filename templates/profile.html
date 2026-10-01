@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock %}
+{% block content %}
+<div class="card" style="border-left-color: var(--accent);">
+    <div class="profile-head">
+        <div class="avatar">{{ user.username[0]|upper }}</div>
+        <div>
+            <h2 style="margin-bottom: 4px;">{{ user.username }}</h2>
+            <p style="color: var(--muted); margin: 0;">
+                {{ 'Пациент' if user.role == 'patient' else 'Волонтёр' }} · с {{ user.created_at }}
+            </p>
+        </div>
+    </div>
+    <div class="stats" style="margin: 0;">
+        <div class="stat">
+            <div class="num">{{ count }}</div>
+            <div class="label">{{ 'заявок создано' if user.role == 'patient' else 'смен выполнено' }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
